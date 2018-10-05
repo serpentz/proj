@@ -7,9 +7,10 @@ class PullRequest < ActiveRecord::Base
 		students = {}
 		PullRequest.all.each do |pull_request|
 
-					!students[pull_request.student_id]?students[pull_request.student_id] = 1 : students[pull_request.student_id]+=1
+				stud = Student.find(pull_request.student_id)
+
+					!students[stud.name]?students[stud.name] = 1 : students[stud.name]+=1
 		end
 		students
 	end
-
 end

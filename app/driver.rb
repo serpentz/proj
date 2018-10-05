@@ -18,14 +18,15 @@ require_relative "../config/environment.rb"
 
 	def print_options
 			print <<-TEXT
-				1. Rank students based on Pull Requests
-				2. Get all Pull Requests for a specific user
-				3. Get same info for all other mods (2,4,5)
-				4. Get Person with the most work done in all mods
-				5. exit
+################################################################################# 
+1. Rank students based on Pull Requests 					#
+2. Get all Pull Requests for a specific user 					#
+3. Get same info for all other mods (2,4,5) (coming soon) 			#
+4. Get Person with the most work done in all mods (coming soon) 		#
+5. exit										#
+################################################################################# 
 			TEXT
 	end
-
 
 def play1
 	 hash = PullRequest.make_ranks
@@ -36,13 +37,21 @@ def play1
 end
 
 def play2
+	puts "please enter the github username of the student :"
+	name = gets.chomp
+	stud = Student.find_by(name: name)
 
-	
-	 hash = PullRequest.make_ranks
-	 array = hash.sort_by { |key, age| age }
-	 array.reverse.each do |value|
-	 	puts "student #{value[0]} has completed #{value[1]}" 
-	 end 
+	while stud == nil
+		puts "please enter a valid github username of the student :"
+
+		stud = Student.find_by(name: gets.chomp)
+	end
+
+	stud.get_all_pull_requests.each do |i|
+		puts i.name
+	end
+
+	 
 end
 
 def run(int)
